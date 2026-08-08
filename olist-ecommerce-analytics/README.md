@@ -12,7 +12,10 @@ Using **MySQL**, the project spans the full data engineering and analytics lifec
 olist-ecommerce-analytics/
 │
 ├── README.md                          <-- Project Documentation
-│  
+│
+├── docs
+|   └── business_requirements.txt
+|  
 ├── sql_scripts/
 │   ├── 01_schema_setup_and_cleaning.sql  <-- Staging, Deduplication & Type Casting
 │   └── 02_exploratory_data_analysis.sql  <-- Executive Reports (COO/CFO Prompts)
