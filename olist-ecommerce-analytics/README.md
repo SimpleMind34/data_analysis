@@ -12,14 +12,10 @@ Using **MySQL**, the project spans the full data engineering and analytics lifec
 olist-ecommerce-analytics/
 │
 ├── README.md                          <-- Project Documentation
-├── docs/
-│   └── entity_relationship_diagram.png <-- ERD Schema Diagram
-│
+│  
 ├── sql_scripts/
 │   ├── 01_schema_setup_and_cleaning.sql  <-- Staging, Deduplication & Type Casting
 │   └── 02_exploratory_data_analysis.sql  <-- Executive Reports (COO/CFO Prompts)
-│
-└── executive_summary.md                <-- High-level Business Takeaways
 ```
 
 ---
@@ -85,7 +81,7 @@ ORDER BY total_revenue DESC
 LIMIT 10;
 ```
 
-### 📊 Sprint 3: Regional Customer Lifetime Value & State Rankings
+### 📊 Scenario 3: Regional Customer Lifetime Value & State Rankings
 
 #### **Business Problem**
 The Growth and Sales leadership teams wanted to identify key customer segments across regions. Specifically, they needed a regional leaderboard showing the **Top 5 highest-spending customers per state**, alongside their order count and total lifetime value (LTV).
@@ -104,7 +100,7 @@ The Growth and Sales leadership teams wanted to identify key customer segments a
 | SP | 1 | `0a1...` | 4 | $6,920.00 |
 ---
 
-### 📊 Sprint 4: Regional Sales Summary Executive View
+### 📊 Scenario 4.1: Regional Sales Summary Executive View
 
 #### **Business Goal**
 Executive stakeholders need high-level visibility into monthly revenue trends and Average Order Value (AOV) across geographic regions without needing to re-run heavy 3-table joins across millions of order items.
@@ -134,8 +130,8 @@ JOIN olist_customers_dataset c
     ON o.customer_id = c.customer_id
 WHERE o.order_status = 'delivered'
 GROUP BY c.customer_state, DATE_FORMAT(o.order_purchase_timestamp, '%Y-%m');
-
-### ⚙️ Sprint 4: Automated Customer Lookup Stored Procedure
+```
+### ⚙️ Scenario 4.2: Automated Customer Lookup Stored Procedure
 
 #### **Business Goal**
 Customer support and analytical teams frequently need to audit individual customer histories without writing manual multi-table joins. This module automates customer order tracking through a reusable MySQL Stored Procedure.
@@ -150,7 +146,7 @@ Customer support and analytical teams frequently need to audit individual custom
 ```sql
 -- Execute lookup for a valid customer:
 CALL sp_get_customer_history('8d5054d015c90be01a6c7b6b2fe5f07b');
-
+```
 -- Result Set:
 -- +----------------------------------+----------------------------------+--------------+-------------+
 -- | customer_unique_id               | order_id                         | order_status | total_spent |
@@ -158,7 +154,7 @@ CALL sp_get_customer_history('8d5054d015c90be01a6c7b6b2fe5f07b');
 -- | 8d5054d015c90be01a6c7b6b2fe5f07b | 128a101a029302198031208a38109312 | delivered    | 142.50      |
 -- +----------------------------------+----------------------------------+--------------+-------------+
 
-### 🔔 Sprint 5: Automated Order Audit System & Triggers
+### 🔔 Scenario 5.1: Automated Order Audit System & Triggers
 
 #### **Business Problem**
 In an enterprise e-commerce system, tracking the lifecycle of an order is critical for operational visibility, logistics SLA auditing, and dispute management. Updating order states directly on the main database can obscure historical lifecycle transitions if changes are overwritten.
@@ -208,7 +204,7 @@ WHERE order_id = '1a9543c90f188e2e4fb14327ad4a9c9b';
 
 -- Query Audit Trail
 SELECT * FROM order_status_audit;
-
+```
 -- Result Set:
 -- +----------+----------------------------------+------------+------------+---------------------+
 -- | audit_id | order_id                         | old_status | new_status | updated_at          |
@@ -217,7 +213,7 @@ SELECT * FROM order_status_audit;
 -- | 2        | 1a9543c90f188e2e4fb14327ad4a9c9b | shipped    | delivered  | 2026-08-08 17:28:05 |
 -- +----------+----------------------------------+------------+------------+---------------------+
 
-### 🧹 Sprint 5 (Task 2): Automated Maintenance via Scheduled Events
+### 🧹 Scenario 5.2: Automated Maintenance via Scheduled Events
 
 #### **Business Goal**
 Audit logs grow rapidly over time in transactional systems. Retaining stale logs indefinitely degrades database performance and increases storage overhead. This module automates background database hygiene by running automated cleanup jobs during off-peak hours.
@@ -246,7 +242,7 @@ BEGIN
 END $
 
 DELIMITER ;
-
+```
 ## 🚀 Getting Started
 1. Clone the repo: `git clone https://github.com/yourusername/olist-ecommerce-analytics.git`
 2. Download the Olist dataset from Kaggle and load CSVs into your MySQL database.
