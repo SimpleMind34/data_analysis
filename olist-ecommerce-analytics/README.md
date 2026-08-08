@@ -146,14 +146,14 @@ Customer support and analytical teams frequently need to audit individual custom
 ```sql
 -- Execute lookup for a valid customer:
 CALL sp_get_customer_history('8d5054d015c90be01a6c7b6b2fe5f07b');
-```
+
 -- Result Set:
 -- +----------------------------------+----------------------------------+--------------+-------------+
 -- | customer_unique_id               | order_id                         | order_status | total_spent |
 -- +----------------------------------+----------------------------------+--------------+-------------+
 -- | 8d5054d015c90be01a6c7b6b2fe5f07b | 128a101a029302198031208a38109312 | delivered    | 142.50      |
 -- +----------------------------------+----------------------------------+--------------+-------------+
-
+```
 ### 🔔 Scenario 5.1: Automated Order Audit System & Triggers
 
 #### **Business Problem**
@@ -204,7 +204,7 @@ WHERE order_id = '1a9543c90f188e2e4fb14327ad4a9c9b';
 
 -- Query Audit Trail
 SELECT * FROM order_status_audit;
-```
+
 -- Result Set:
 -- +----------+----------------------------------+------------+------------+---------------------+
 -- | audit_id | order_id                         | old_status | new_status | updated_at          |
@@ -212,7 +212,7 @@ SELECT * FROM order_status_audit;
 -- | 1        | 1a9543c90f188e2e4fb14327ad4a9c9b | processing | shipped    | 2026-08-08 17:28:00 |
 -- | 2        | 1a9543c90f188e2e4fb14327ad4a9c9b | shipped    | delivered  | 2026-08-08 17:28:05 |
 -- +----------+----------------------------------+------------+------------+---------------------+
-
+```
 ### 🧹 Scenario 5.2: Automated Maintenance via Scheduled Events
 
 #### **Business Goal**
